@@ -1,7 +1,13 @@
-.App {
-  text-align: center;
-}
 
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1; /* Ensure it's behind other content */
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -15,7 +21,7 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,4 +41,38 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+
+/* App.css */
+.App {
+  background-color: #debde0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* prevent scrollbars */
+  position: relative;
+}
+
+/* Make sure LiquidEther fills the container */
+.liquid-ether-background {
+  width: 100%;
+  height: 100%;
+  position: absolute; /* ensure it's behind text */
+  top: 0;
+  left: 0;
+  z-index: 0;
+}
+
+/* Overlay text styling */
+.variable-proximity-demo {
+  width: 1000px;          /* max width before wrapping */
+  white-space: normal;   /* allow wrapping */
+  text-align: center;    /* center the text */
+  line-height: 1.2;      /* spacing between lines */
+  font-size: 60px; 
+  z-index: 1; /* on top of LiquidEther */
+  font-family: 'Inter', sans-serif; /* or any variable font you want */
+  color: white; /* or another visible color */
+  pointer-events: auto; /* allow hover effects */
+  text-align: center;
 }
