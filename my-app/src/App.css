@@ -65,14 +65,14 @@
 
 /* Overlay text styling */
 .variable-proximity-demo {
-  width: 1000px;          /* max width before wrapping */
-  white-space: normal;   /* allow wrapping */
+  width: 600px;          /* max width before wrapping */
+  white-space: pre-wrap;   /* allow wrapping */
   text-align: center;    /* center the text */
   line-height: 1.2;      /* spacing between lines */
-  font-size: 60px; 
+  font-size: 40px; 
   z-index: 1; /* on top of LiquidEther */
   font-family: 'Inter', sans-serif; /* or any variable font you want */
   color: white; /* or another visible color */
   pointer-events: auto; /* allow hover effects */
-  text-align: center;
+
 }
