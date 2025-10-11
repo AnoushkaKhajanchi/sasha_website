@@ -34,6 +34,7 @@ const SAMPLE_PROJECTS = [
 
 export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
   return (
+    <div className="App" style={{ backgroundColor: '#f7f7ff7e' }}>
     <div className="page">
       <header className="header">
         <h1 className="title">Projects</h1>
@@ -67,7 +68,7 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
         :root {
           --bg: #0b0b0c;
           --card: #111216;
-          --ink: #e7e8ea;
+          --ink: #102247ff;
           --muted: #a3a7ad;
           --ring: rgba(255,255,255,0.08);
           --border: rgba(255,255,255,0.12);
@@ -83,7 +84,7 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
         }
 
         /* Page + scroll container */
-        .page { max-width: 1100px; margin: 0 auto; padding: 24px; min-height: 100vh; display: flex; flex-direction: column; }
+        .page { max-width: 1100px; margin: 0 auto; padding: 24px; min-height: 100vh; display: flex; flex-direction: column;  }
         .header { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
         .title { font-size: 28px; letter-spacing: 0.02em; font-weight: 700; margin: 0; }
         .stack { display: grid; gap: 16px; flex: 1; overflow-y: auto; padding-right: 6px; overscroll-behavior: contain; }
@@ -97,11 +98,11 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
         /* Cards */
         .card {
           display: flex;
-          background: linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+          background: #efe6efff;       
           border: 1px solid var(--border);
           border-radius: 18px;
           overflow: hidden;
-          box-shadow: 0 8px 30px rgba(0,0,0,0.35);
+          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
           transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
           min-height: 180px;
         }
@@ -124,6 +125,7 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
           .imageWrap { flex-basis: auto; max-width: none; }
         }
       `}</style>
+    </div>
     </div>
   );
 }
