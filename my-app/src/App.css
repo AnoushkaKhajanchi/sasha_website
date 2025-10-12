@@ -1,78 +1,31 @@
-
-
-.background-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
+/* Make the page itself fill and remove default margins */
+html, body, #root {
   height: 100%;
-  z-index: -1; /* Ensure it's behind other content */
 }
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html, body {
+  margin: 0;
+  background: #debde0; /* fallback color behind the canvas */
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-
-/* App.css */
+/* Your app should grow with content, not be locked to 100vh */
 .App {
-  background-color: #debde0;
-  width: 100vw;
-  height: 100vh;
-overflow: hidden; /* prevent scrollbars */
+  background-color: #debde0;  
+  min-height: 100%;
   position: relative;
 }
 
-/* Make sure LiquidEther fills the container */
+/* The LiquidEther canvas should pin to viewport, not the .App box */
 .liquid-ether-background {
-  width: 100%;
-  height: 100%;
-  position: absolute; /* ensure it's behind text */
-  top: 0;
-  left: 0;
-  z-index: 0;
+  position: fixed;   /* key change */
+  inset: 0;          /* top:0; right:0; bottom:0; left:0 */
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;        /* don't use -1; some browsers hide it under <body> */
+  pointer-events: none; /* so it doesn't block clicks (unless you need them) */
 }
 
-/* Overlay text styling */
-.variable-proximity-demo {
-  width: 600px;          /* max width before wrapping */
-  white-space: pre-wrap;   /* allow wrapping */
-  text-align: center;    /* center the text */
-  line-height: 1.2;      /* spacing between lines */
-  font-size: 40px; 
-  z-index: 1; /* on top of LiquidEther */
-  font-family: 'Inter', sans-serif; /* or any variable font you want */
-  color: white; /* or another visible color */
-  pointer-events: auto; /* allow hover effects */
+/* Keep your text above the background */
+.variable-proximity-demo { z-index: 1; }
 
-}
+/* OPTIONAL: you can delete this if not used */
+.background-container { display: contents; } /* or just remove the rule */

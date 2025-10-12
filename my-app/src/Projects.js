@@ -1,16 +1,21 @@
 
-import React from "react";
+import React, { useMemo, useRef, useState, useLayoutEffect } from "react";
+import "./Projects.css";
 
 const SAMPLE_PROJECTS = [
   {
     id: 1,
-    title: "Liquid Ether Visual",
-    role: "Lead prototyper + visual designer; ran user tests and built motion system.",
+    title: "The Women's Building",
+    role: "Design Consultant - team of 9",
     summary:
-      "A shader-driven fluid background built with canvas + React. This card shows how a wide image sits on the left with a flexible text area on the right.",
+      "Transformed a historic staff-led tour into an engaging self-guided experience celebrating women’s empowerment and community history. I designed the Maestrapeace mural section and this tour is used by the nonprofit.",
     image:
       "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop",
-    tags: ["WebGL", "React", "Canvas"],
+    tags: ["SWOT Analysis", "Figma", "Framer"],
+    more: [
+      { heading: "Details", body: "Mapped wayfinding pain points, prototyped 3 tour flows in Figma/Framer, and user-tested with 12 visitors to refine pacing and narration." },
+      { heading: "Impact", body: "Adoption by the nonprofit for self-guided tours; decreased staff time by ~35% per tour and improved visitor satisfaction scores." },
+    ],
   },
   {
     id: 2,
@@ -20,6 +25,10 @@ const SAMPLE_PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1581093588401-16ec8a6a57c0?q=80&w=1200&auto=format&fit=crop",
     tags: ["MechE", "Prototyping", "Testing"],
+    more: [
+      { heading: "Details", body: "Parametric hard-point rails, seat-belt anchor adjusters, and height sliders. Manufactured with laser-cut aluminum and 3D-printed brackets." },
+      { heading: "Impact", body: "Cut fit-validation time by ~50% and standardized measurements across drivers; informed the next chassis rev." },
+    ],
   },
   {
     id: 3,
@@ -29,103 +38,254 @@ const SAMPLE_PROJECTS = [
     image:
       "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop",
     tags: ["HCD", "Silicone", "Manufacturing"],
+    more: [
+      { heading: "Details", body: "Conducted 8 interviews; prototyped multi-durometer silicone channels, tested pressure distribution and cleanability." },
+      { heading: "Impact", body: "Improved pressure relief consistency; documented DFM notes for eventual over-molding and tubing snaps." },
+    ],
   },
 ];
 
-export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
+function Collapse({ id, open, children }) {
+  const outerRef = useRef(null);
+  const innerRef = useRef(null);
+
+  useLayoutEffect(() => {
+    const outer = outerRef.current;
+    const inner = innerRef.current;
+    // inside useLayoutEffect, after `const h = inner.scrollHeight;`
+    console.log('panel', id, 'open?', open, 'inner.scrollHeight=', inner.scrollHeight);
+
+    if (!outer || !inner) return;
+
+    // Ensure only this element animates
+    outer.style.overflow = "hidden";
+    outer.style.willChange = "max-height, opacity";
+    outer.style.transition = "max-height 260ms ease, opacity 220ms ease";
+
+    // Toggle the .open class so your CSS can set opacity:1
+    if (open) {
+      outer.classList.add("open");
+    } else {
+      outer.classList.remove("open");
+    }
+
+    // Measure & animate height
+    const expand = () => {
+      // Start at 0 so the browser can animate 0 -> content height
+      outer.style.maxHeight = "0px";
+      // force reflow
+      // eslint-disable-next-line no-unused-expressions
+      outer.offsetHeight;
+
+      const h = inner.scrollHeight;
+      outer.style.maxHeight = `${h}px`;
+
+      const onEnd = (e) => {
+        if (e.propertyName !== "max-height") return;
+        // When fully open, allow natural growth
+        outer.style.maxHeight = "none";
+        outer.removeEventListener("transitionend", onEnd);
+      };
+      outer.addEventListener("transitionend", onEnd);
+    };
+
+    const collapse = () => {
+      // If it was 'none', set to current pixel height first for smooth close
+      if (outer.style.maxHeight === "none") {
+        outer.style.maxHeight = `${inner.scrollHeight}px`;
+        // force reflow
+        // eslint-disable-next-line no-unused-expressions
+        outer.offsetHeight;
+      }
+      outer.style.maxHeight = "0px";
+    };
+
+    if (open) expand();
+    else collapse();
+
+    // Keep height accurate if inner content changes (e.g., images)
+    const ro = new ResizeObserver(() => {
+      if (!open) return;
+      if (outer.style.maxHeight !== "none") {
+        outer.style.maxHeight = `${inner.scrollHeight}px`;
+      }
+    });
+    ro.observe(inner);
+
+    return () => ro.disconnect();
+  }, [open, children]);
+  console.log('panel', id, 'open now?', open);
+
   return (
-    <div className="App" style={{ backgroundColor: '#f7f7ff7e' }}>
-    <div className="page">
-      <header className="header">
-        <h1 className="title">Projects</h1>
-      </header>
-
-      <main className="stack">
-        {projects.map((p) => (
-          <article key={p.id} className="card" role="region" aria-label={p.title}>
-            <div className="imageWrap">
-              <img src={p.image} alt={p.title} className="image" />
-            </div>
-
-            <div className="content">
-              <h2 className="cardTitle">{p.title}</h2>
-              {p.role ? <p className="role">{p.role}</p> : null}
-              <p className="summary">{p.summary}</p>
-
-              {p.tags && p.tags.length > 0 ? (
-                <div className="tags">
-                  {p.tags.map((t, i) => (
-                    <span key={i} className="tag">{t}</span>
-                  ))}
-                </div>
-              ) : null}
-            </div>
-          </article>
-        ))}
-      </main>
-
-      <style>{`
-        :root {
-          --bg: #0b0b0c;
-          --card: #111216;
-          --ink: #102247ff;
-          --muted: #a3a7ad;
-          --ring: rgba(255,255,255,0.08);
-          --border: rgba(255,255,255,0.12);
-        }
-
-        * { box-sizing: border-box; }
-        html, body, #root { height: 100%; }
-        body {
-          margin: 0;
-          background: var(--bg);
-          color: var(--ink);
-          font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji", "Segoe UI Emoji";
-        }
-
-        /* Page + scroll container */
-        .page { max-width: 1100px; margin: 0 auto; padding: 24px; min-height: 100vh; display: flex; flex-direction: column;  }
-        .header { display: flex; align-items: center; justify-content: flex-start; margin-bottom: 20px; }
-        .title { font-size: 28px; letter-spacing: 0.02em; font-weight: 700; margin: 0; }
-        .stack { display: grid; gap: 16px; flex: 1; overflow-y: auto; padding-right: 6px; overscroll-behavior: contain; }
-
-        /* Scrollbar styling (safe no-ops if unsupported) */
-        .stack::-webkit-scrollbar { width: 10px; }
-        .stack::-webkit-scrollbar-track { background: rgba(255,255,255,0.03); border-radius: 8px; }
-        .stack::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.18); border-radius: 8px; }
-        .stack { scrollbar-width: thin; scrollbar-color: rgba(255,255,255,0.18) rgba(255,255,255,0.03); }
-
-        /* Cards */
-        .card {
-          display: flex;
-          background: #efe6efff;       
-          border: 1px solid var(--border);
-          border-radius: 18px;
-          overflow: hidden;
-          box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-          transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
-          min-height: 180px;
-        }
-        .card:hover { transform: translateY(-2px); border-color: var(--ring); box-shadow: 0 12px 40px rgba(0,0,0,0.45); }
-
-        .imageWrap { flex: 0 0 260px; max-width: 260px; position: relative; background: #0e0f12; }
-        .image { width: 100%; height: 100%; object-fit: cover; display: block; }
-
-        .content { flex: 1; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
-        .cardTitle { font-size: 20px; font-weight: 700; margin: 0; line-height: 1.2; }
-        .role { margin: 0; color: var(--muted); font-size: 14px; opacity: 0.9; }
-        .summary { margin: 0; color: var(--muted); line-height: 1.6; }
-
-        .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 4px; }
-        .tag { font-size: 12px; padding: 6px 10px; border: 1px solid var(--border); border-radius: 999px; background: rgba(255,255,255,0.03); }
-
-        /* Responsive */
-        @media (max-width: 720px) {
-          .card { flex-direction: column; }
-          .imageWrap { flex-basis: auto; max-width: none; }
-        }
-      `}</style>
-    </div>
+    <div id={id} ref={outerRef} className="expandPanel" aria-hidden={!open}>
+      <div ref={innerRef}>{children}</div>
     </div>
   );
 }
+
+export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
+  const [query, setQuery] = useState("");
+  const [activeTag, setActiveTag] = useState(null);
+  const [expanded, setExpanded] = useState(() => new Set());
+
+  const toggle = (id) =>
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      next.has(id) ? next.delete(id) : next.add(id);
+      return next;
+    });
+
+  const allTags = useMemo(() => {
+    const set = new Set();
+    projects.forEach((p) => (p.tags || []).forEach((t) => set.add(t)));
+    return Array.from(set).sort();
+  }, [projects]);
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase();
+    return projects.filter((p) => {
+      const textHit =
+        !q ||
+        p.title.toLowerCase().includes(q) ||
+        (p.summary || "").toLowerCase().includes(q) ||
+        (p.role || "").toLowerCase().includes(q) ||
+        (p.tags || []).some((t) => t.toLowerCase().includes(q));
+      const tagHit = !activeTag || (p.tags || []).includes(activeTag);
+      return textHit && tagHit;
+    });
+  }, [projects, query, activeTag]);
+
+  return (
+    <div className="projects App">
+      <div className="page">
+        <header className="header">
+          <h1 className="title">Projects</h1>
+
+          <div className="controls" role="search">
+            <input
+              className="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="Search title, tags, summary…"
+              aria-label="Search projects"
+            />
+            <div className="tagRow" role="toolbar" aria-label="Tag filters">
+              <button
+                className={"tagBtn " + (!activeTag ? "active" : "")}
+                onClick={() => setActiveTag(null)}
+                aria-pressed={!activeTag}
+                type="button"
+              >
+                All
+              </button>
+              {allTags.map((t) => (
+                <button
+                  key={t}
+                  className={"tagBtn " + (activeTag === t ? "active" : "")}
+                  onClick={() => setActiveTag(t === activeTag ? null : t)}
+                  aria-pressed={activeTag === t}
+                  type="button"
+                >
+                  {t}
+                </button>
+              ))}
+              {(query || activeTag) && (
+                <button
+                  className="clearBtn"
+                  onClick={() => {
+                    setQuery("");
+                    setActiveTag(null);
+                  }}
+                  aria-label="Clear search and tag filters"
+                  type="button"
+                >
+                  Clear
+                </button>
+              )}
+            </div>
+          </div>
+        </header>
+
+        <main className="stack" aria-live="polite">
+          {filtered.map((p) => {
+            const isOpen = expanded.has(p.id);
+            const panelId = `panel-${p.id}`;
+
+            return (
+              <article
+                key={p.id}
+                className={"card" + (isOpen ? " cardOpen" : "")}
+                role="region"
+                aria-label={p.title}
+              >
+                <div className="imageWrap">
+                  <img
+                    src={p.image}
+                    alt={`${p.title} project image`}
+                    className="image"
+                    loading="lazy"
+                  />
+                  <div className="fade" aria-hidden="true" />
+                </div>
+
+                <div className="content">
+                  <div className="titleRow">
+                    <h2 className="cardTitle">{p.title}</h2>
+                    {p.role ? <span className="rolePill">{p.role}</span> : null}
+                  </div>
+                  <p className="summary">{p.summary}</p>
+
+                  {p.tags && p.tags.length > 0 ? (
+                    <div className="tags">
+                      {p.tags.map((t, i) => (
+                        <button
+                          key={i}
+                          className="tag"
+                          onClick={() => setActiveTag(t)}
+                          aria-label={`Filter by ${t}`}
+                          type="button"
+                        >
+                          {t}
+                        </button>
+                      ))}
+                    </div>
+                  ) : null}
+
+                  <div className="cardFooter">
+                    <button
+                      type="button"
+                      className="expandBtn"
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => {console.log("Toggling", p.id);toggle(p.id)}}
+                      title={isOpen ? "Collapse details" : "Expand details"}
+                    >
+                      <span className="plus" aria-hidden="true">+</span>
+                      <span className="expandLabel">
+                        {isOpen ? "Hide details" : "More details"}
+                      </span>
+                    </button>
+                  </div>
+
+                  <Collapse id={panelId} open={isOpen}>
+                    {p.more.slice(0, 2).map((sec, idx) => (
+                      <section key={idx} className="moreSection">
+                        <h3 className="moreHeading">{sec.heading}</h3>
+                        <p className="moreBody">{sec.body}</p>
+                      </section>
+                    ))}
+                  </Collapse>
+                </div>
+              </article>
+            );
+          })}
+
+          {filtered.length === 0 && (
+            <p className="emptyState">No projects match your filters.</p>
+          )}
+        </main>
+      </div>
+    </div>
+  );
+}
+
