@@ -215,7 +215,7 @@ function Shell() {
               <VariableProximity
                 label="Hi! My name is Sasha Khajanchi."
                 className="variable-proximity-demo"
-                style={{ fontSize: 40, lineHeight: 1.1 }}
+                style={{ fontSize: 60, lineHeight: 1.1 }}
                 fromFontVariationSettings="'wght' 500, 'opsz' 100"
                 toFontVariationSettings="'wght' 1000, 'opsz' 900"
                 containerRef={containerRef}
@@ -226,7 +226,7 @@ function Shell() {
                
                 label="Let's create something amazing together."
                 className="variable-proximity-demo"
-                style={{ fontSize: 40, lineHeight: 1.1 }}
+                style={{ fontSize: 60, lineHeight: 1.1 }}
                 fromFontVariationSettings="'wght' 500, 'opsz' 100"
                 toFontVariationSettings="'wght' 1000, 'opsz' 900"
                 containerRef={containerRef}
@@ -251,10 +251,10 @@ function Shell() {
       >
         <Routes>
           <Route path="/" element={<main style={{ color: "#ffffffff", textSize:25,padding: 24 }}>Home</main>} />
-          <Route path="/Fun" element={<Fun />} />
+          <Route path="/fun" element={<Fun />} />
           <Route path="/projects" element={<Projects />} />
           {/* <Route path="/contact" element={<Contact />} /> */}
-          <Route path="./about" element={<About />} />
+          <Route path="/about" element={<About />} />
         </Routes>
       </div>
 
