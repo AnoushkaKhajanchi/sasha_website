@@ -138,6 +138,7 @@ import VariableProximity from "./components/Variable_Proximity/VariableProximity
 import StaggeredMenu from "./components/staggered_menu/StaggeredMenu";
 
 // Pages
+import Fun from "./Fun";
 import About from "./About";
 import Projects from "./Projects";
 
@@ -157,6 +158,8 @@ function Shell() {
   const menuItems = [
     { label: "Home", ariaLabel: "Go to home page", link: "/" },
     { label: "About", ariaLabel: "Learn about us", link: "/about" },
+    { label: "Fun", ariaLabel: "Learn about us", link: "/fun" },
+
     { label: "Projects", ariaLabel: "View our projects", link: "/projects" },
     // { label: "Contact", ariaLabel: "Get in touch", link: "/contact" }
   ];
@@ -208,10 +211,11 @@ function Shell() {
               textAlign: "center",
             }}
           >
-            <div style={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
+            <div style={{ size: "700px", color: "#fff", display: "flex", flexDirection: "column", alignItems: "flex-start" }}>
               <VariableProximity
                 label="Hi! My name is Sasha Khajanchi."
                 className="variable-proximity-demo"
+                style={{ fontSize: 40, lineHeight: 1.1 }}
                 fromFontVariationSettings="'wght' 500, 'opsz' 100"
                 toFontVariationSettings="'wght' 1000, 'opsz' 900"
                 containerRef={containerRef}
@@ -222,6 +226,7 @@ function Shell() {
                
                 label="Let's create something amazing together."
                 className="variable-proximity-demo"
+                style={{ fontSize: 40, lineHeight: 1.1 }}
                 fromFontVariationSettings="'wght' 500, 'opsz' 100"
                 toFontVariationSettings="'wght' 1000, 'opsz' 900"
                 containerRef={containerRef}
@@ -245,11 +250,11 @@ function Shell() {
         }}
       >
         <Routes>
-          <Route path="/" element={<main style={{ padding: 24 }}>Home</main>} />
-          <Route path="/about" element={<About />} />
+          <Route path="/" element={<main style={{ color: "#ffffffff", textSize:25,padding: 24 }}>Home</main>} />
+          <Route path="/Fun" element={<Fun />} />
           <Route path="/projects" element={<Projects />} />
           {/* <Route path="/contact" element={<Contact />} /> */}
-          <Route path="*" element={<main style={{ padding: 24 }}>Not found</main>} />
+          <Route path="./about" element={<About />} />
         </Routes>
       </div>
 
