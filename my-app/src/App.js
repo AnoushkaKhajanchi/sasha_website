@@ -4,7 +4,7 @@ import React, { useRef, useState } from "react";
 import { BrowserRouter, Routes, Route, useLocation, NavLink } from "react-router-dom";
 import { createPortal } from "react-dom";
 import "./App.css";
-
+import { HashRouter } from "react-router-dom";
 // Components
 import LiquidEther from "./components/liquid_ether/LiquidEther";
 import VariableProximity from "./components/Variable_Proximity/VariableProximity";
@@ -177,7 +177,7 @@ function Shell() {
 
 export default function App() {
   return (
-    <BrowserRouter basename="/sasha_website">
+    <BrowserRouter >
       <Shell />
     </BrowserRouter>
   );
