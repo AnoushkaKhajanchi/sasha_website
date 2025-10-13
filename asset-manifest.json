@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/sasha_website/static/css/main.72999471.css",
-    "main.js": "/sasha_website/static/js/main.af8885cd.js",
+    "main.js": "/sasha_website/static/js/main.5e37446c.js",
     "static/js/453.117b0875.chunk.js": "/sasha_website/static/js/453.117b0875.chunk.js",
     "index.html": "/sasha_website/index.html",
     "main.72999471.css.map": "/sasha_website/static/css/main.72999471.css.map",
-    "main.af8885cd.js.map": "/sasha_website/static/js/main.af8885cd.js.map",
+    "main.5e37446c.js.map": "/sasha_website/static/js/main.5e37446c.js.map",
     "453.117b0875.chunk.js.map": "/sasha_website/static/js/453.117b0875.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.72999471.css",
-    "static/js/main.af8885cd.js"
+    "static/js/main.5e37446c.js"
   ]
 }
