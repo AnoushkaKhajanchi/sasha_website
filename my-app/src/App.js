@@ -177,7 +177,7 @@ function Shell() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename="/sasha_website">
       <Shell />
     </BrowserRouter>
   );
