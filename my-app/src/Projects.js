@@ -12,8 +12,8 @@ const SAMPLE_PROJECTS = [
     image:"/photos/TheWomensBuilding.png",
 
                // intrinsic height (preserves aspect ratio)
-    maxW: 250,            // cap the image column for this card (px)
-    aspect: "16 / 9",     // force an aspect-ratio if you want letterboxing
+    maxW: 300,            // cap the image column for this card (px)
+    aspect: "13 / 12",     // force an aspect-ratio if you want letterboxing
     fit: "contain",
     tags: ["SWOT Analysis", "Figma", "Framer"],
     more: [
@@ -29,10 +29,8 @@ const SAMPLE_PROJECTS = [
     image:
       "/photos/GoodNotes.png",
 
-    imgW: 100,           // intrinsic width  (for layout stability)
-    imgH: 20,            // intrinsic height (preserves aspect ratio)
-    maxW: 550,            // cap the image column for this card (px)
-    aspect: "5 / 2",
+    maxW: 300,            // cap the image column for this card (px)
+    aspect: "13 / 12",
     tags: ["UXR", "Figma", "Surveying"],
     more: [
       { heading: "The Process", body: "Given the short timeline, we conducted rapid research through multiple channels: I analyzing student testimonies on Reddit, gathering firsthand accounts of learning frustrations, and I built a survey for K-12 students about their learning journeys and teacher interactions." },
@@ -46,10 +44,8 @@ const SAMPLE_PROJECTS = [
     summary:
       "EF Coach Tutors empowers students to build confidence and ownership in their learning through executive function coaching, goal-setting, and AI-driven study strategies that make learning more engaging and effective.",
     image: "/photos/Tutors.png",
-    imgW: 100,           // intrinsic width  (for layout stability)
-    imgH: 20,            // intrinsic height (preserves aspect ratio)
-    maxW: 600,            // cap the image column for this card (px)
-    aspect: "3 / 1",
+    maxW: 300,            // cap the image column for this card (px)
+    aspect: "13 / 12",
     tags: ["UXR", "CAD", "Interviews"],
     more: [
       { heading: "Problem Details", body: "We were tasked to create a personalized, adaptive learning tool that enhances focus and independence for neurodivergent students while aligning with EF Coach Tutors’ commitment to individualized, strengths-based education." },
@@ -66,10 +62,8 @@ const SAMPLE_PROJECTS = [
     image:
      "/photos/elf.png",
               // cap the image column for this card (px)
-    imgW: 100,           // intrinsic width  (for layout stability)
-    imgH: 20,            // intrinsic height (preserves aspect ratio)
-    maxW: 400,            // cap the image column for this card (px)
-    aspect: "3 / 2.7",          // cap the image column for this card (px)
+    maxW: 300,            // cap the image column for this card (px)
+    aspect: "13 / 12",          // cap the image column for this card (px)
    
 
     tags: ["Coming Soon!"],
@@ -83,10 +77,8 @@ const SAMPLE_PROJECTS = [
     summary:" Leading a 9-member team to design an automated, modular testing system for Fellow’s coffee grinders, improving precision and efficiency while targeting a 15–20% reduction in material waste.",
     image:
     "/photos/fellow.png",
-    imgW: 100,           // intrinsic width  (for layout stability)
-    imgH: 20,            // intrinsic height (preserves aspect ratio)
-    maxW: 350,            // cap the image column for this card (px)
-    aspect: "1 / 0.2", 
+    maxW: 300,            // cap the image column for this card (px)
+    aspect: "13 / 12", 
     tags: ["Coming Soon!"],
     more: [],
   },
