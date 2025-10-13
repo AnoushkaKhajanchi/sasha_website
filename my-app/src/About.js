@@ -37,13 +37,13 @@ export default function About() {
         </div>
 
         <div style={{maxWidth:"600px", background:"#ffffff70", borderRadius:"15px", margin:"20px", padding:"20px", boxShadow:"0 4px 8px rgba(0,0,0,0.1)"}}>
-            <p style={{fontSize:"25px", color:"#1c0346ff"}}>
+            <p style={{fontSize:"23px", color:"#1c0346ff"}}>
              I'm Sasha, a second-year UC Berkeley student studying Political Economy and Design. I believe we learn most when we ask for help and embrace what we don't know yet. While I'm early in my professional journey, I'm driven by creativity and curiosity about how strategy and human behavior intersect. I'm particularly drawn to project management, business analytics, and marketing—fields where I can combine my love for understanding people with data-driven insights. I thrive on spotting patterns and bringing fresh perspectives to complex challenges.
             I love connecting with others and learning from diverse perspectives, always looking for opportunities to grow and contribute meaningfully to any team or project.       
             </p>
 
             <div style= {{flexDirection:"row", display:"flex", justifyContent:"left"}}>
-            <p style={{padding: "10px", fontSize: "24px", color: "#1c0346ff"}}>Connect with me on LinkedIn!</p>
+            <p style={{padding: "10px", fontSize: "23px", color: "#1c0346ff"}}>Connect with me on LinkedIn!</p>
             <a
               href="https://www.linkedin.com/in/sasha-khajanchi/"
               target="_blank"
