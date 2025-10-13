@@ -74,13 +74,13 @@ export default function About() {
         <div style={{flexDirection:"row", display:"flex", justifyContent:"left", alignItems:"left", marginLeft:"250px"}}>
 
         <div style={{marginTop:"10px"}}>
-          <h1 style={{color:"#280368ff", fontSize:"40px"}}>My SuperPowers</h1>
+          <h1 style={{color:"#fcfcfcff", fontSize:"40px"}}>My SuperPowers</h1>
           <img src="/photos/superpower.gif" alt="superpowers" style={{width:"300px", height:"300px", borderRadius:"50px"}}/>
         </div> 
         <div style={{flexDirection:"column"   , display:"flex", justifyContent:"left", alignItems:"left" , padding:"50px", maxWidth:"800px"}}>
 
 
-        <div style={{background:"#0a0101c9", borderRadius:"15px", padding:"20px", marginBottom:"20px"}}>
+        <div style={{background:"#7ef3f5ae", borderRadius:"15px", padding:"20px", marginBottom:"20px"}}>
         <div style={{fontSize:"30px", color:"#fcfbfcff", fontWeight:"bold", marginTop:"10px"}}>
         <DecryptedText
           text="Late-Starter Resilience"
@@ -95,7 +95,7 @@ export default function About() {
           <p style={{fontSize:"20px"}}>I've tried countless new sports throughout my life, even picking up completely unfamiliar activities now. This has taught me that being terrible at something initially is just part of the process, not a reason to quit. This experience has made me comfortable with the vulnerability of being a beginner and shown me that improvement comes from persistence. </p>
          </div>
 
-          <div style={{background:"#0a0101c9", borderRadius:"15px", padding:"20px", marginBottom:"20px"}}>
+          <div style={{background:"#7e9ef5ae", borderRadius:"15px", padding:"20px", marginBottom:"20px"}}>
          <div style={{fontSize:"30px", color:"#faf9fbff", fontWeight:"bold", marginTop:"10px"}}>
           <DecryptedText
           text="Adaptive Facilitation"
@@ -112,7 +112,7 @@ export default function About() {
           </p>
           </div>
         
-          <div style={{background:"#0a0101c9", borderRadius:"15px", padding:"20px", marginBottom:"20px"}}>
+          <div style={{background:"#ba7ef5ae", borderRadius:"15px", padding:"20px", marginBottom:"20px"}}>
           <div style={{fontSize:"30px", color:"#f8f7faff", fontWeight:"bold", marginTop:"10px"}}>
           <DecryptedText
           text="Turning Chaos into Clarity"

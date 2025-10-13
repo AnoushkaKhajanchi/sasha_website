@@ -47,7 +47,8 @@ export default function Fun() {
   ];
 
   return (
-    <main style={{ padding: 50, background: 'transparent', color: 'white' }}>
+    <main style={{ padding: 24, background: 'transparent', color: 'white' }}>
+      <div style={{size:"10px", position:"left"}}>Fun</div>
       <Masonry
         items={items}
         ease="power3.out"
