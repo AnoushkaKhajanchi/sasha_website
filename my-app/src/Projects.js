@@ -9,8 +9,12 @@ const SAMPLE_PROJECTS = [
     role: "Design Consultant - team of 9",
     summary:
       "Transformed a historic staff-led tour into an engaging self-guided experience celebrating women’s empowerment and community history. I designed the Maestrapeace mural section and this tour is used by the nonprofit.",
-    image:
-      "https://images.unsplash.com/photo-1511499767150-a48a237f0083?q=80&w=1200&auto=format&fit=crop",
+    image:"/photos/TheWomensBuilding.png",
+
+               // intrinsic height (preserves aspect ratio)
+    maxW: 250,            // cap the image column for this card (px)
+    aspect: "16 / 9",     // force an aspect-ratio if you want letterboxing
+    fit: "contain",
     tags: ["SWOT Analysis", "Figma", "Framer"],
     more: [
       { heading: "The Problem", body: "The Women’s Building aimed to transition its in-person tour into an online self-guided experience. Our team created an engaging and educational journey that preserves the organization’s history and values while introducing opportunities for sustainable monetization. I designed the MaestraPeace mural section, highlighting the iconic artwork on the building and showcasing the stories and artists behind it." },
@@ -23,7 +27,12 @@ const SAMPLE_PROJECTS = [
     role: "Design Consultant - team of 5",
     summary:"GoodNotes Designathon 2023: Created a digital note-taking app concept focused on accessibility and inclusivity. The problem statement: What could the future of collaoration in the classroom look like - with GoodNotes as its core?  Our solution ended up winning second place.",
     image:
-      "https://images.unsplash.com/photo-1581093588401-16ec8a6a57c0?q=80&w=1200&auto=format&fit=crop",
+      "/photos/GoodNotes.png",
+
+    imgW: 100,           // intrinsic width  (for layout stability)
+    imgH: 20,            // intrinsic height (preserves aspect ratio)
+    maxW: 550,            // cap the image column for this card (px)
+    aspect: "5 / 2",
     tags: ["UXR", "Figma", "Surveying"],
     more: [
       { heading: "The Process", body: "Given the short timeline, we conducted rapid research through multiple channels: I analyzing student testimonies on Reddit, gathering firsthand accounts of learning frustrations, and I built a survey for K-12 students about their learning journeys and teacher interactions." },
@@ -36,8 +45,11 @@ const SAMPLE_PROJECTS = [
     role:"Product Design Consultant",
     summary:
       "EF Coach Tutors empowers students to build confidence and ownership in their learning through executive function coaching, goal-setting, and AI-driven study strategies that make learning more engaging and effective.",
-    image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop",
+    image: "/photos/Tutors.png",
+    imgW: 100,           // intrinsic width  (for layout stability)
+    imgH: 20,            // intrinsic height (preserves aspect ratio)
+    maxW: 600,            // cap the image column for this card (px)
+    aspect: "3 / 1",
     tags: ["UXR", "CAD", "Interviews"],
     more: [
       { heading: "Problem Details", body: "We were tasked to create a personalized, adaptive learning tool that enhances focus and independence for neurodivergent students while aligning with EF Coach Tutors’ commitment to individualized, strengths-based education." },
@@ -52,7 +64,14 @@ const SAMPLE_PROJECTS = [
     summary:
       "Partnering with e.l.f. Beauty, we’re analyzing campaigns like “So Many Dicks” and “Change the Board Game” to make boardroom diversity resonate with Gen Z and millennials, using research and activations at UC Berkeley to spark conversation and awareness around representation",
     image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop",
+     "/photos/elf.png",
+              // cap the image column for this card (px)
+    imgW: 100,           // intrinsic width  (for layout stability)
+    imgH: 20,            // intrinsic height (preserves aspect ratio)
+    maxW: 400,            // cap the image column for this card (px)
+    aspect: "3 / 2.7",          // cap the image column for this card (px)
+   
+
     tags: ["Coming Soon!"],
     more:[],
   },
@@ -63,7 +82,11 @@ const SAMPLE_PROJECTS = [
     role:"Project Manager",
     summary:" Leading a 9-member team to design an automated, modular testing system for Fellow’s coffee grinders, improving precision and efficiency while targeting a 15–20% reduction in material waste.",
     image:
-      "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=1200&auto=format&fit=crop",
+    "/photos/fellow.png",
+    imgW: 100,           // intrinsic width  (for layout stability)
+    imgH: 20,            // intrinsic height (preserves aspect ratio)
+    maxW: 350,            // cap the image column for this card (px)
+    aspect: "1 / 0.2", 
     tags: ["Coming Soon!"],
     more: [],
   },
@@ -243,15 +266,30 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
                 role="region"
                 aria-label={p.title}
               >
-                <div className="imageWrap">
-                  <img
-                    src={p.image}
-                    alt={`${p.title} project image`}
-                    className="image"
-                    loading="lazy"
-                  />
-                  <div className="fade" aria-hidden="true" />
-                </div>
+                <div
+                    className="imageWrap"
+                    style={{
+                      // Let this card’s image column grow to the image, but cap it if provided
+                      width: p.maxW ?? undefined,        // sets actual width if provided
+                      maxWidth: '100%',
+                      aspectRatio: p.aspect ?? undefined 
+                    }}
+                  >
+                    <img
+                      src={p.image}
+                      alt={`${p.title} project image`}
+                      className="image"
+                      loading="lazy"
+
+                      // Reserve layout space = fewer content shifts
+                      width={p.imgW ?? undefined}
+                      height={p.imgH ?? undefined}
+
+                      // Per-image fit rule (default to 'contain' so it never crops)
+                      style={{ objectFit: p.fit ?? "contain" }}
+                    />
+                    <div className="fade" aria-hidden="true" />
+                  </div>
 
                 <div className="content">
                   <div className="titleRow">
@@ -276,30 +314,6 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
                     </div>
                   ) : null}
 
-                  {/* <div className="cardFooter">
-                    <button
-                      type="button"
-                      className="expandBtn"
-                      aria-expanded={isOpen}
-                      aria-controls={panelId}
-                      onClick={() => {console.log("Toggling", p.id);toggle(p.id)}}
-                      title={isOpen ? "Collapse details" : "Expand details"}
-                    >
-                      <span className="plus" aria-hidden="true">+</span>
-                      <span className="expandLabel">
-                        {isOpen ? "Hide details" : "More details"}
-                      </span>
-                    </button>
-                  </div>
-
-                  <Collapse id={panelId} open={isOpen}>
-                    {p.more.slice(0, 2).map((sec, idx) => (
-                      <section key={idx} className="moreSection">
-                        <h3 className="moreHeading">{sec.heading}</h3>
-                        <p className="moreBody">{sec.body}</p>
-                      </section>
-                    ))}
-                  </Collapse> */}
                   {hasMore && (
                     <>
                       <div className="cardFooter">

@@ -108,13 +108,27 @@
   transition: transform 160ms ease, box-shadow 160ms ease, border-color 160ms ease;
   min-height: 180px;
   outline: none;
+  
 }
 .projects .card:hover { transform: translateY(-2px); border-color: var(--ring); box-shadow: 0 12px 40px rgba(0,0,0,0.18); }
 .projects .cardOpen { box-shadow: 0 14px 46px rgba(0,0,0,0.22); }
 
 /* Media */
-.projects .imageWrap { flex: 0 0 260px; max-width: 260px; position: relative; background: #0e0f12; }
-.projects .image { width: 100%; height: 100%; object-fit: cover; display: block; }
+.projects .imageWrap {
+  flex: 0 1 auto;                          /* allow shrinking */
+  width: clamp(240px, 40vw, 560px);        /* actual width */
+  max-width: 100%;                          /* don’t overflow the card */
+  position: relative;
+  background: #fafbfb;
+  overflow: hidden;
+}
+
+.projects .image {
+  width: 100%;        /* fill wrapper width */
+  height: auto;       /* preserve aspect ratio */
+  display: block;
+}
+
 .projects .fade {
   position: absolute;
   inset: 0;
@@ -124,12 +138,19 @@
 }
 
 /* Content */
-.projects .content { flex: 1; padding: 18px; display: flex; flex-direction: column; gap: 10px; }
+.projects .content {
+  flex: 1;
+  min-width: 0;       /* critical: allows text to shrink/wrap instead of overflow */
+  padding: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
 .projects .titleRow { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 .projects .cardTitle { font-size: 20px; font-weight: 700; margin: 0; line-height: 1.2; }
 .projects .rolePill {
   font-size: 12px;
-  background: #ffffffad;
+  background: #fff;
   color: #0d1b39;
   border: 1px solid var(--border);
   padding: 4px 10px;
@@ -186,15 +207,26 @@
 .projects .emptyState { color: var(--muted-2); padding: 24px 8px; }
 
 /* Responsive */
-@media (max-width: 980px) {
-  .projects .card { min-height: 160px; }
-  .projects .imageWrap { flex: 0 0 220px; max-width: 220px; }
+@media (min-width: 900px) {
+  .projects .image { max-height: 520px; }
 }
+/* Mobile: stack, full-width image with natural height */
 @media (max-width: 720px) {
-  .projects .stack { grid-template-columns: 1fr; }
   .projects .card { flex-direction: column; }
-  .projects .imageWrap { flex-basis: auto; max-width: none; height: 200px; }
-  .projects .fade { background: linear-gradient(180deg, rgba(239,230,239,0) 0%, rgba(239,230,239,0.45) 100%); }
+  .projects .imageWrap {
+    flex-basis: auto;
+    max-width: none;
+    width: 100%;
+    height: auto;      /* was: height: 200px; (this caused crop) */
+  }
+  .projects .image { width: 100%; height: auto; }
+  .projects .fade {
+    background: linear-gradient(
+      180deg,
+      rgba(239,230,239,0) 0%,
+      rgba(239,230,239,0.45) 100%
+    );
+  }
 }
 @media (prefers-reduced-motion: reduce) {
   .projects .card, .projects .tagBtn, .projects .expandBtn, .projects .expandPanel { transition: none; }
