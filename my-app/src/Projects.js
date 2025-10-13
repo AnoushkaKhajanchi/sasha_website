@@ -234,6 +234,7 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
           {filtered.map((p) => {
             const isOpen = expanded.has(p.id);
             const panelId = `panel-${p.id}`;
+            const hasMore = Array.isArray(p.more) && p.more.length > 0
 
             return (
               <article
@@ -275,7 +276,7 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
                     </div>
                   ) : null}
 
-                  <div className="cardFooter">
+                  {/* <div className="cardFooter">
                     <button
                       type="button"
                       className="expandBtn"
@@ -298,7 +299,35 @@ export default function ProjectsPage({ projects = SAMPLE_PROJECTS }) {
                         <p className="moreBody">{sec.body}</p>
                       </section>
                     ))}
-                  </Collapse>
+                  </Collapse> */}
+                  {hasMore && (
+                    <>
+                      <div className="cardFooter">
+                        <button
+                          type="button"
+                          className="expandBtn"
+                          aria-expanded={isOpen}
+                          aria-controls={panelId}
+                          onClick={() => { console.log("Toggling", p.id); toggle(p.id); }}
+                          title={isOpen ? "Collapse details" : "Expand details"}
+                        >
+                          <span className="plus" aria-hidden="true">+</span>
+                          <span className="expandLabel">
+                            {isOpen ? "Hide details" : "More details"}
+                          </span>
+                        </button>
+                      </div>
+
+                      <Collapse id={panelId} open={isOpen}>
+                        {p.more.slice(0, 2).map((sec, idx) => (
+                          <section key={idx} className="moreSection">
+                            <h3 className="moreHeading">{sec.heading}</h3>
+                            <p className="moreBody">{sec.body}</p>
+                          </section>
+                        ))}
+                      </Collapse>
+                    </>
+                  )}
                 </div>
               </article>
             );
