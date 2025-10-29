@@ -1,0 +1,1 @@
+Contains code for an interactive React App for a personal website. Has 5 pages: a landing page, a projects page that includes search and filteration, an about page, a dynamic collage page, and a resume page.
